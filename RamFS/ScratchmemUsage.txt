@@ -1,0 +1,31 @@
+&00-&7F		General workspace
+
+
+
+
+
+&80-&8E		Identification String used for detection and startup - Do Not Overwrite
+&8F		DTRAP Status 00=Disabled, FF=Active
+&90		00=Quiet/FF=Verbose flag for EXTRACT/ENCODE
+&91		First Drive for EXT/ENC - &FF if not valid
+&92		Second Drive for EXT/ENC - &FF if not valid
+&93		00=Target RAM/FF=Target Disk
+&94		Option counter
+&A0-&A3		32 number to convert to decimal
+&A4		decimal printing pad character, 0 for none
+
+&D6		Default Directory
+&D7		Default Drive
+&D8		Bootup Option
+&D9		&FF if *RAM, &00 if service call 3
+&DA		Initialisation flag - &12 if power on boot &56 if regular boot
+&DB		Monitor Prompt Counter
+&DC		Binary to decimal source number
+&DE-&DF		Binary to decimal converted number
+&E0-&EB		USB Disk Volume Label
+&EC-&EF		USB Disk Volume Serial Number
+&F0		Number of files in USB directory
+&F1		Number of directories in USB directory
+&F2-&F3		Temp copy of &F2 and &F3
+&F4-&F7		Extracted image filesize
+&F8-&FF		Save BEC5 routine
