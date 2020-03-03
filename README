@@ -1,0 +1,68 @@
+RetroClinic DataCentre
+======================
+
+PCB - Eagle PCB layout files
+----------------------------
+
+Xilinx - USV controller files
+-----------------------------
+
+RAMFS - Source for RAM filing system and utilities ROM
+------------------------------------------------------
+RAMFS100 - source for RAMFS 1.00
+Build with BeebAsm with:
+ BeebAsm -i RAMFS100.asm -o RAMFS100.rom
+
+RAMFS104 - source for RAMFS 1.04
+Build with BeebAsm with:
+ BeebAsm -i RAMFS104.asm -o RAMFS104.rom -D VER=104
+
+RAMFS is based on DFS 0.90, and consequently shares the Tube handling bugs
+that are present in DFS 0.90. RAMFS 1.04 fixes these bugs:
+
+* OSWORD &77/&7F have the correct inter-byte Tube transfer delays so operate 
+correctly over the Tube
+
+* OSFILE and OSGBPB correctly claim the Tube before using it, and release it 
+afterwards. This allows other code to use the Tube when RAMFS isn't using 
+it. In particular, it allows RAMFS to be used with second processors such as 
+the 6809 that use polled interupts for data transfer.
+
+* Corruption of the Master soft key pointer is avoided.
+
+* As RAMFS never claims any workspace, the workspace pointer is never 
+initialised. The UTILS are changed to use stack workspace instead of the 
+non-existant main memory workspace.
+
+* Saving to USB from second processor uses the correct start address in the 
+OSFILE control block.
+
+* Error numbers for 'No disk', 'DFS not selected' and 'Image file too big' 
+corrected.
+
+* The *HELP syntax messages are corrected.
+
+Tools - source for utilities to use with the DataCentre
+-------------------------------------------------------
+*RAMTrap (ON|OFF)
+-----------------
+You can use a second processor with a disk-based operating system with disk
+images in the RAMFS drives, for instance Z80 CP/M or 6809 Flex. Using *DTRAP
+will divert all floppy access to the RAMFS drives. However, it also disables
+all other ROMs, so you can't use a hard drive.
+
+*RAMTrap diverts floppy disk sector access to RAMFS without disabling any
+ROMs so you can use a hard drive.
+
+  *RAMTrap      turns on the RAMFS trap
+  *RAMTrap ON   turns on the RAMFS trap and re-enables it after Break
+  *RAMTrap OFF  turns off the RAMFS trap
+
+To use it with a Z80 second processor, make sure you have a CP/M system disk
+in RAMFS drive 0. Then press Break (not Ctrl-Break) to get to the * prompt.
+Type *RAMTrap or *RAMTrap ON then type *CPM. If you use *RAMTrap ON you can
+also press Ctrl-Break to boot CP/M.
+
+
+NVFORM - not yet uploaded
+RCOPY - not yet uploaded
